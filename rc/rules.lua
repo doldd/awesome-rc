@@ -105,7 +105,7 @@ module.rules = {
         properties = {ontop=true,
                       floating=true,
                       titlebars_enabled=false,
-                      opacity=0.5,
+                      opacity=0.95,
                       placement=awful.placement.centered + awful.placement.top} 
     }
 

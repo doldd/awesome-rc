@@ -128,10 +128,16 @@ client.connect_signal(
 )
 
 client.connect_signal(
-    'focus', function(c) c.border_color = beautiful.border_focus end
+    'focus', function(c) 
+        c.border_color = beautiful.border_focus 
+        c.opacity=1.0
+    end
 )
 client.connect_signal(
-    'unfocus', function(c) c.border_color = beautiful.border_normal end
+    'unfocus', function(c) 
+        c.border_color = beautiful.border_normal
+        c.opacity=0.95
+    end
 )
 client.connect_signal(
     'property::screen', function()

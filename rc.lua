@@ -75,7 +75,7 @@ local function run_once(cmd_arr)
 end
 -- run_once({ "urxvtd", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
 -- run_once({ "xfsettingsd", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
-run_once({ "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+run_once({"xcompmgr -c", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
 
 awful.spawn('ulauncher  --no-window-shadow')
 
