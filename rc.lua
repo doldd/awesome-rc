@@ -35,6 +35,7 @@ local awful = require('awful')
 
 -- Theme handling library
 local beautiful = require('beautiful')
+local gears = require('gears')
 
 -- Mac OSX like 'Expose' view of all clients.
 local revelation = require('revelation')
@@ -106,7 +107,20 @@ root.keys(keys.global_keys)
 
 -- [ setup wibar and desktop widgets ] -----------------------------------------
 awful.screen.set_auto_dpi_enabled(true)
-awful.screen.connect_for_each_screen(beautiful.at_screen_connect)
+awful.screen.connect_for_each_screen(function(s)
+	beautiful.at_screen_connect(s)
+	if (s.geometry.height > s.geometry.width) then
+		gears.debug.print_warning("test screen init vertical")
+		for k, v in pairs(s.tags) do
+			gears.debug.print_warning(k)
+			gears.debug.print_warning(v)
+			v.layout = awful.layout.suit.tile.bottom
+		end
+	end
+	-- gears.debug.print_warning("test screen")
+	-- 	gears.debug.print_warning("vertical screen")
+
+end)
 --------------------------------------------------------------------------------
 
 -- [ rules ] -------------------------------------------------------------------

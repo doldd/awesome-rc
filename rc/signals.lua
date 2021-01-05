@@ -30,6 +30,7 @@
 -- grab environment
 local awesome = awesome
 local client = client
+local tag = tag
 
 -- Standard awesome library
 local gears = require('gears')
@@ -53,6 +54,14 @@ client.connect_signal(
             not c.size_hints.program_position then
             -- Prevent clients from being unreachable after screen count changes.
             awful.placement.no_offscreen(c)
+        end
+
+        if c.floating or c.first_tag.layout.name == "floating" then
+            c.titlebars_enabled = true
+            -- awful.titlebar.show(c)
+        else
+            -- c.titlebars_enabled = false
+            awful.titlebar.hide(c)
         end
     end
 )
@@ -102,11 +111,6 @@ client.connect_signal(
             },
             layout = wibox.layout.align.horizontal
         }
-        -- Hide the titlebar if we are not floating
-        local l = awful.layout.get(c.screen)
-        if not (l.name == 'floating' or c.floating) then
-            awful.titlebar.hide(c)
-        end
     end
 )
 
@@ -173,29 +177,49 @@ for s = 1, screen.count() do
     )
 end
 
--- client.connect_signal(
---     'property::floating', function(c)
---         if c.floating then
---             awful.titlebar.show(c)
---         else
---             awful.titlebar.hide(c)
---         end
---     end
--- )
+client.connect_signal(
+    'property::floating', function(c)
+        gears.debug.print_warning("property::floating") -- logs are in ~/.xsession-errors
+        gears.debug.print_warning(c.floating)
+
+
+        -- Hide the titlebar if we are not floating
+        local l = awful.layout.get(awful.screen.focused())
+        -- gears.debug.print_warning(l.name)
+        if c.requests_no_titlebar then
+            awful.titlebar.hide(c)
+        elseif c.floating or l.name == 'floating' then
+            awful.titlebar.show(c)
+        -- elseif l.name == 'floating' then
+        --     awful.titlebar.show(c)
+        else
+            awful.titlebar.hide(c)
+        end
+    end
+)
 
 client.disconnect_signal("request::geometry", awful.ewmh.client_geometry_requests)
 client.connect_signal("request::geometry", function(c, context, hints)
     if c.class == "Ulauncher" then
-        print("reques::geometry")
-        print(context)
-        print(hints)
-        for k, v in pairs(hints) do
-            print(k, v)
-        end
-        -- workarea = awful.screen.focused().workarea
-        -- hints = awful.placement.centered(c)
-        -- hints.width = workarea.width * beautiful.feh_scale
-        -- hints.height = workarea.height * beautiful.feh_scale
+        -- gears.debug.print_warning("reques::geometry")
+        -- gears.debug.print_warning(context)
+        -- gears.debug.print_warning(hints)
+        -- for k, v in pairs(hints) do
+        --     gears.debug.print_warning(k, v)
+        -- end
         awful.ewmh.client_geometry_requests(c, context, hints)
+    end
+end)
+
+
+tag.connect_signal("property::layout", function(t)
+    local clients = t:clients()
+    gears.debug.print_warning("property::layout")
+    for k,c in pairs(clients) do
+        if c.floating or c.first_tag.layout.name == "floating" then
+            awful.titlebar.show(c)
+        else
+            awful.titlebar.hide(c)
+        end
     end
 end)
