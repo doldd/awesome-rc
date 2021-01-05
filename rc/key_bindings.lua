@@ -3,7 +3,7 @@
 -- @Author: marcel
 -- @Date:   2019-12-03 13:53:32
 --
--- @Last Modified by: Marcel Arpogaus
+-- @Last Modified by:   Daniel
 -- @Last Modified at: 2020-10-19 22:34:05
 -- [ description ] -------------------------------------------------------------
 -- ...
@@ -248,10 +248,10 @@ module.global_keys = gears.table.join(
                 terminal, {intrusive = true, floating = true, ontop = true}
             )
         end, {description = 'open a floating terminal', group = 'launcher'}
-    ), awful.key(
-        {modkey}, 'space',
-        function() awful.spawn('/usr/bin/rofi -show drun -modi drun') end,
-        {description = 'launch rofi', group = 'launcher'}
+    -- ), awful.key(
+    --     {modkey}, 'space',
+    --     function() awful.spawn('/usr/bin/rofi -show drun -modi drun') end,
+    --     {description = 'launch rofi', group = 'launcher'}
     ), awful.key(
         {modkey}, 'b', function() awful.spawn(browser) end,
         {description = 'launch Browser', group = 'launcher'}
@@ -284,7 +284,7 @@ module.global_keys = gears.table.join(
         function() awful.tag.incncol(-1, nil, true) end,
         {description = 'decrease the number of columns', group = 'layout'}
     ), awful.key(
-        {modkey, 'Shift'}, 'space', function() awful.layout.inc(1) end,
+        {modkey,}, 'space', function() awful.layout.inc(1) end,
         {description = 'select previous', group = 'layout'}
     ),
     -- [ screenshot ]-----------------------------------------------------------

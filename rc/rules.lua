@@ -3,7 +3,7 @@
 -- @Author: marcel
 -- @Date:   2019-12-03 13:53:32
 --
--- @Last Modified by: Marcel Arpogaus
+-- @Last Modified by:   Daniel
 -- @Last Modified at: 2020-10-19 17:04:27
 -- [ description ] -------------------------------------------------------------
 -- ...
@@ -100,6 +100,13 @@ module.rules = {
     {
         rule_any = {type = {"normal", "dialog"}},
         properties = {titlebars_enabled = true}
+    },
+    {   rule = { class = "Ulauncher" }, 
+        properties = {ontop=true,
+                      floating=true,
+                      titlebars_enabled=false,
+                      opacity=0.5,
+                      placement=awful.placement.centered + awful.placement.top} 
     }
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

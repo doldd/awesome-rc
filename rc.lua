@@ -3,7 +3,7 @@
 -- @Author: Marcel Arpogaus
 -- @Date:   2019-12-03 15:34:44
 --
--- @Last Modified by: Marcel Arpogaus
+-- @Last Modified by:   Daniel
 -- @Last Modified at: 2020-10-04 19:54:17
 -- [ description ] -------------------------------------------------------------
 -- ...
@@ -64,7 +64,20 @@ beautiful.init(
 beautiful.icon_theme = 'Papirus'
 
 -- [ autorun programs ] --------------------------------------------------------
-awful.spawn.with_shell('~/.config/awesome/autorun.sh')
+-- awful.spawn.with_shell('~/.config/awesome/autorun.sh')
+awful.spawn('xrandr --dpi 144 --fb 5640x2880 --output DP-0 --mode 3840x2160 --pos 1800x240  --output DVI-D-0 --mode 1920x1200 --scale 1.5x1.5 --rotate left')
+
+local function run_once(cmd_arr)
+    for _, cmd in ipairs(cmd_arr) do
+        awful.spawn.with_shell(string.format("pgrep -u $USER -fx '%s' > /dev/null || (%s)", cmd, cmd))
+    end
+end
+-- run_once({ "urxvtd", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+-- run_once({ "xfsettingsd", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+run_once({ "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+
+awful.spawn('ulauncher  --no-window-shadow')
+
 
 -- Initialize revelation
 revelation.init()

@@ -3,7 +3,7 @@
 -- @Author: marcel
 -- @Date:   2019-12-03 13:53:32
 --
--- @Last Modified by: Marcel Arpogaus
+-- @Last Modified by:   Daniel
 -- @Last Modified at: 2020-10-04 19:54:06
 -- [ description ] -------------------------------------------------------------
 -- ...
@@ -172,12 +172,30 @@ for s = 1, screen.count() do
         end
     )
 end
-client.connect_signal(
-    'property::floating', function(c)
-        if c.floating then
-            awful.titlebar.show(c)
-        else
-            awful.titlebar.hide(c)
+
+-- client.connect_signal(
+--     'property::floating', function(c)
+--         if c.floating then
+--             awful.titlebar.show(c)
+--         else
+--             awful.titlebar.hide(c)
+--         end
+--     end
+-- )
+
+client.disconnect_signal("request::geometry", awful.ewmh.client_geometry_requests)
+client.connect_signal("request::geometry", function(c, context, hints)
+    if c.class == "Ulauncher" then
+        print("reques::geometry")
+        print(context)
+        print(hints)
+        for k, v in pairs(hints) do
+            print(k, v)
         end
+        -- workarea = awful.screen.focused().workarea
+        -- hints = awful.placement.centered(c)
+        -- hints.width = workarea.width * beautiful.feh_scale
+        -- hints.height = workarea.height * beautiful.feh_scale
+        awful.ewmh.client_geometry_requests(c, context, hints)
     end
-)
+end)
