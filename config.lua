@@ -44,7 +44,7 @@ module.wibar_widgets = {
 }
 
 -- widgets to be added to the desktop pop up
-module.arc_widgets = {'cpu', 'mem', 'fs'}
+module.arc_widgets = {'cpu', 'mem', 'fs', 'temp'}
 
 -- configure widgets
 module.widgets_arg = {
@@ -65,6 +65,8 @@ module.widgets_arg = {
 
 -- [ miscellaneous ] -----------------------------------------------------------
 -- Using Tyrannical tag managment engine
-module.tyrannical = false
+module.tyrannical = true
+
+-- module.net_interface ='eno1'
 
 return module

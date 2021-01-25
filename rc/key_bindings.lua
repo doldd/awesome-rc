@@ -256,6 +256,14 @@ module.global_keys = gears.table.join(
         {modkey}, 'b', function() awful.spawn(browser) end,
         {description = 'launch Browser', group = 'launcher'}
     ),
+    awful.key(
+        {modkey, 'Control'}, 'u', function() awful.spawn.with_shell('nmcli connection up HTWG-WiSe1920-updated') end,
+        {description = 'VPN connection UP', group = 'launcher'}
+    ),
+    awful.key(
+        {modkey, 'Control'}, 'd', function() awful.spawn.with_shell('nmcli connection down HTWG-WiSe1920-updated') end,
+        {description = 'VPN connection DOWN', group = 'launcher'}
+    ),
     -- [ layout ]---------------------------------------------------------------
     awful.key(
         {modkey}, 'l', function() awful.tag.incmwfact(0.05) end,
@@ -299,18 +307,19 @@ module.global_keys = gears.table.join(
     -- [ screenshot ]-----------------------------------------------------------
     awful.key(
         {}, 'Print', function()
-            awful.spawn.with_shell('sleep 0.1 && /usr/bin/i3-scrot -d')
+            awful.spawn.with_shell('sleep 0.1 && shutter -f')
         end, {description = 'capture a screenshot', group = 'screenshot'}
     ), awful.key(
         {'Control'}, 'Print', function()
-            awful.spawn.with_shell('sleep 0.1 && /usr/bin/i3-scrot -w')
+            -- awful.spawn.with_shell('sleep 0.1 && /usr/bin/i3-scrot -w')
+            awful.spawn.with_shell('sleep 0.1 && shutter -a')
         end, {
             description = 'capture a screenshot of active window',
             group = 'screenshot'
         }
     ), awful.key(
         {'Shift'}, 'Print', function()
-            awful.spawn.with_shell('sleep 0.1 && /usr/bin/i3-scrot -s')
+            awful.spawn.with_shell('sleep 0.1 && shutter --section')
         end, {
             description = 'capture a screenshot of selection',
             group = 'screenshot'

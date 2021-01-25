@@ -106,7 +106,16 @@ module.rules = {
                       floating=true,
                       titlebars_enabled=false,
                       opacity=0.95,
+                      intrusive=true,
                       placement=awful.placement.centered + awful.placement.top} 
+    },
+    {   rule = { class = "Shutter" }, 
+        properties = {floating=true,
+                      -- titlebars_enabled=false,
+                      -- opacity=0.95,
+                      intrusive=true,
+                      -- placement=awful.placement.centered + awful.placement.top} 
+                  }
     }
 
     -- Set Firefox to always map on the tag named "2" on screen 1.

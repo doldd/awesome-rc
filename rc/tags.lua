@@ -60,6 +60,7 @@ awful.layout.layouts = {
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
 }
+-- Table of layouts for vertical screens
 awful.layout.layouts_vertical = {
     awful.layout.suit.floating,
     -- awful.layout.suit.tile,
@@ -80,7 +81,7 @@ awful.layout.layouts_vertical = {
 if config.tyrannical then
     -- [ tyrannical properties ] ---------------------------------------------------
     -- Define default layout per screen
-    tyrannical.settings.default_layout = awful.layout.suit.tile
+    tyrannical.settings.default_layout = awful.layout.suit.faisr
 
     -- Make the matching clients (by classes) on top of the default layout
     tyrannical.properties.ontop = {'Xephyr', 'ksnapshot', 'kruler'}
@@ -107,11 +108,13 @@ if config.tyrannical then
             layout = awful.layout.suit.fair -- Use the max layout
         },
         {
-            name = '',
+            -- name = '',
+            name = '🌏',
             init = false,
             exclusive = true,
             screen = screen.count() > 1 and 2 or 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
-            layout = awful.layout.suit.max, -- Use the max layout
+            layout = awful.layout.suit.fair, -- Use the max layout
+            volatile = true,
             class = {
                 'Opera',
                 'Firefox',
@@ -128,24 +131,29 @@ if config.tyrannical then
             name = '',
             init = false,
             exclusive = true,
-            screen = screen.count() > 1 and 2 or 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
-            layout = awful.layout.suit.magnifier, -- Use the max layout
-            master_width_factor = 0.8,
-            class = {'Thunderbird'}
+            screen = 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
+            force_screen = 1,
+            layout = awful.layout.suit.fair, -- Use the max layout
+            volatile = true,
+            class = {
+                'Thunderbird'
+            }
         },
         {
-            name = '',
+            name = '🗄',
             init = false,
             exclusive = true,
             screen = 1,
+            force_screen = screen.count() > 1 and 2 or 1,
             layout = awful.layout.suit.tile,
             -- exec_once = {'thunar'}, -- When the tag is accessed for the first time, execute this command
+            volatile = true,
             class = {
                 'Thunar',
                 'Konqueror',
                 'Dolphin',
                 'ark',
-                'Nautilus',
+                'Org.gnome.Nautilus',
                 'emelfm'
             }
         },
@@ -154,8 +162,10 @@ if config.tyrannical then
             init = false,
             exclusive = true,
             screen = 1,
-            layout = awful.layout.suit.tile.bottom,
+            force_screen = 1,
+            layout = awful.layout.suit.magnifier,
             master_width_factor = 0.8,
+            volatile = true,
             class = {
                 'Kate',
                 'KDevelop',
@@ -177,78 +187,116 @@ if config.tyrannical then
             }
         },
         {
-            name = '',
+            name = '📎',
             init = false, -- This tag wont be created at startup, but will be when one of the
             -- client in the "class" section will start. It will be created on
             -- the client startup screen
             screen = screen.count() > 1 and 2 or 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
+            force_screen = 1,
             exclusive = true,
             layout = awful.layout.suit.max,
+            volatile = true,
             class = {
-                'Assistant',
-                'Okular',
+                'Mendeley Desktop',
                 'Evince',
+                'Atril',
+                'Foxit Reader',
+                'Okular',
+                'Assistant',
                 'EPDFviewer',
                 'xpdf',
                 'Xpdf',
                 'zathura'
             }
-        },
+        },       
         {
-            name = '',
+            name = '㍐',
             init = false, -- This tag wont be created at startup, but will be when one of the
             -- client in the "class" section will start. It will be created on
             -- the client startup screen
+            screen = 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
+            force_screen = 1,
             exclusive = true,
             layout = awful.layout.suit.fair,
-            class = {'mpv', 'vlc', 'Player', 'qvidcap', 'Gpodder'}
+            volatile = true,
+            class = {
+                'jetbrains-pycharm',
+            }
+        },        
+        {
+            name = '💻',
+            init = false, -- This tag wont be created at startup, but will be when one of the
+            -- client in the "class" section will start. It will be created on
+            -- the client startup screen
+            screen = screen.count() > 1 and 2 or 1, -- Setup on screen 2 if there is more than 1 screen, else on screen 1
+            exclusive = true,
+            layout = awful.layout.suit.fair,
+            volatile = true,
+            class = {
+                'Vmplayer',
+            }
+        },
+        {
+            name = '⏯',
+            init = false, -- This tag wont be created at startup, but will be when one of the
+            -- client in the "class" section will start. It will be created on
+            -- the client startup screen
+            screen = screen.count() > 1 and 2 or 1,
+            force_screen = screen.count() > 1 and 2 or 1,
+            exclusive = true,
+            layout = awful.layout.suit.fair,
+            class = {'mpv', 'vlc', 'Player', 'qvidcap', 'Gpodder', 'Spotify'}
         }
     }
 
     -- Ignore the tag "exclusive" property for the following clients (matched by classes)
     tyrannical.properties.intrusive = {
-        'About KDE',
-        'Background color',
-        'feh',
-        'Gradient editor',
-        'gtksu',
-        'kcalc',
-        'kcolorchooser',
-        'kruler',
-        'ksnapshot',
-        'Nm-applet',
-        'Paste Special',
-        'Pavucontrol',
-        'pinentry',
-        'plasmaengineexplorer',
-        'plasmoidviewer',
-        'xcalc',
-        'Xephyr'
+        'Shutter',
+        'Ulauncher',
+        -- 'About KDE',
+        -- 'Background color',
+        -- 'feh',
+        -- 'Gradient editor',
+        -- 'gtksu',
+        -- 'kcalc',
+        -- 'kcolorchooser',
+        -- 'kruler',
+        -- 'ksnapshot',
+        -- 'Nm-applet',
+        -- 'Paste Special',
+        -- 'Pavucontrol',
+        -- 'pinentry',
+        -- 'plasmaengineexplorer',
+        -- 'plasmoidviewer',
+        -- 'xcalc',
+        -- 'Xephyr'
     }
 
     -- Ignore the tiled layout for the matching clients
     tyrannical.properties.floating = {
-        'feh',
-        'gtksu',
-        'Insert Picture',
-        'kcalc',
-        'kcharselect',
-        'kcolorchooser',
-        'kmix',
-        'kruler',
-        'ksnapshot',
-        'MPlayer',
-        'mythfrontend',
-        'New Form',
-        'Paste Special',
-        'Pavucontrol',
-        'pinentry',
-        'pinentry',
-        'plasmoidviewer',
-        'Select Color$',
-        'xcalc',
-        'xine',
-        'yakuake'
+        'Shutter',
+        'Ulauncher',
+        -- 'feh',
+        -- 'gtksu',
+        -- 'Insert Picture',
+        -- 'kcalc',
+        -- 'kcharselect',
+        -- 'kcolorchooser',
+        -- 'kmix',
+        -- 'kruler',
+        -- 'ksnapshot',
+        -- 'MPlayer',
+        -- 'mythfrontend',
+        -- 'New Form',
+        -- 'Paste Special',
+        -- 'Pavucontrol',
+        -- 'pinentry',
+        -- 'pinentry',
+        -- 'plasmoidviewer',
+        -- 'Select Color$',
+        -- 'xcalc',
+        -- 'xine',
+        -- 'yakuake'
     }
 
 else

@@ -185,8 +185,8 @@ end
 
 client.connect_signal(
     'property::floating', function(c)
-        gears.debug.print_warning("property::floating") -- logs are in ~/.xsession-errors
-        gears.debug.print_warning(c.floating)
+        -- gears.debug.print_warning("property::floating") -- logs are in ~/.xsession-errors
+        -- gears.debug.print_warning(c.floating)
 
 
         -- Hide the titlebar if we are not floating
@@ -220,7 +220,7 @@ end)
 
 tag.connect_signal("property::layout", function(t)
     local clients = t:clients()
-    gears.debug.print_warning("property::layout")
+    -- gears.debug.print_warning("property::layout")
     for k,c in pairs(clients) do
         if c.floating or c.first_tag.layout.name == "floating" then
             awful.titlebar.show(c)

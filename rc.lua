@@ -55,15 +55,6 @@ require('rc.error_handling')
 -- connect signals
 require('rc.signals')
 
--- [ theme ] -------------------------------------------------------------------
-beautiful.init(
-    string.format(
-        '%s/.config/awesome/themes/%s/theme.lua', os.getenv('HOME'),
-        config.theme
-    )
-)
-beautiful.icon_theme = 'Papirus'
-
 -- [ autorun programs ] --------------------------------------------------------
 -- awful.spawn.with_shell('~/.config/awesome/autorun.sh')
 awful.spawn('xrandr --dpi 144 --fb 5640x2880 --output DP-0 --mode 3840x2160 --pos 1800x240  --output DVI-D-0 --mode 1920x1200 --scale 1.5x1.5 --rotate left')
@@ -75,10 +66,18 @@ local function run_once(cmd_arr)
 end
 -- run_once({ "urxvtd", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
 -- run_once({ "xfsettingsd", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
-run_once({"xcompmgr -c", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+-- run_once({"xcompmgr -c", "light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
+run_once({"light-locker", "unclutter -root" , "/usr/bin/nextcloud --background", "nm-applet"}) -- entries must be separated by commas
 
-awful.spawn('ulauncher  --no-window-shadow')
 
+-- [ theme ] -------------------------------------------------------------------
+beautiful.init(
+    string.format(
+        '%s/.config/awesome/themes/%s/theme.lua', os.getenv('HOME'),
+        config.theme
+    )
+)
+beautiful.icon_theme = 'Papirus'
 
 -- Initialize revelation
 revelation.init()
@@ -127,3 +126,6 @@ end)
 -- Rules to apply to new clients (through the "manage" signal).
 awful.rules.rules = require('rc.rules').rules
 --------------------------------------------------------------------------------
+
+
+awful.spawn('ulauncher  --no-window-shadow')
